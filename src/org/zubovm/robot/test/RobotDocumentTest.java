@@ -32,6 +32,7 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         RobotDocumentNode node = doc.getCurrentNode();
         assertEquals(node.getClass(), EmptyCommandNode.class);
         Rectangle<Integer> highlight = doc.getHighlight();
+        assertEquals(highlight, new Rectangle<Integer>(1, 1, 9, 1));
     }
 
     public void testTextCut() {
