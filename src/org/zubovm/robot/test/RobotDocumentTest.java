@@ -17,7 +17,7 @@ public class RobotDocumentTest extends junit.framework.TestCase {
     public void testInitialContent() {
         RobotDocument doc = new RobotDocument("Program 0");
         String text = doc.getText();
-        assertEquals(text, "программа Program 0\n<команда>\nконец");
+        assertEquals(text, "программа Program 0\n|<команда>\nконец");
     }
 
     public void testInitialHighlight() {

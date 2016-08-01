@@ -20,7 +20,8 @@ public class RobotDocument {
     }
 
     public Rectangle<Integer> getHighlight() {
-        return new Rectangle<Integer>(0, 0, 10 + programName.length(), 3);
+        return currentNode.getHighlight();
+        //return new Rectangle<Integer>(0, 0, 10 + programName.length(), 3);
     }
 
     public void stepIn() {

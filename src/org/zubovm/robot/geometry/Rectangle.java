@@ -35,4 +35,28 @@ public class Rectangle<T> {
     public T getHeight() {
         return height;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rectangle)) return false;
+
+        Rectangle<?> rectangle = (Rectangle<?>) o;
+
+        if (!getX().equals(rectangle.getX())) return false;
+        if (!getY().equals(rectangle.getY())) return false;
+        if (!getWidth().equals(rectangle.getWidth())) return false;
+
+        return getHeight().equals(rectangle.getHeight());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getX().hashCode();
+        result = 31 * result + getY().hashCode();
+        result = 31 * result + getWidth().hashCode();
+        result = 31 * result + getHeight().hashCode();
+        return result;
+    }
 }
