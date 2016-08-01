@@ -31,4 +31,8 @@ public class RobotDocument {
     public RobotDocumentNode getCurrentNode() {
         return currentNode;
     }
+
+    public void stepOut() {
+        currentNode = currentNode.stepOut();
+    }
 }

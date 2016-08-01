@@ -9,4 +9,5 @@ public interface RobotDocumentNode {
     String getText();
     RobotDocumentNode stepIn();
     Rectangle<Integer> getHighlight();
+    RobotDocumentNode stepOut();
 }

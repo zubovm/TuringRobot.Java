@@ -35,6 +35,12 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         assertEquals(highlight, new Rectangle<Integer>(1, 1, 9, 1));
     }
 
+    public void testStepOut() {
+        RobotDocument doc = new RobotDocument("Program 0");
+        doc.stepIn();
+        doc.stepOut();
+    }
+
     public void testTextCut() {
         String str = "0123456789\n01234\n0123456";
         assertEquals("012345\n01234\n012345",

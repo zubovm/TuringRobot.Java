@@ -33,4 +33,9 @@ public class ProgramNode implements RobotDocumentNode {
     public Rectangle<Integer> getHighlight() {
         return new Rectangle<Integer>(0, 0, 10 + name.length(), 3);
     }
+
+    @Override
+    public RobotDocumentNode stepOut() {
+        return null;
+    }
 }

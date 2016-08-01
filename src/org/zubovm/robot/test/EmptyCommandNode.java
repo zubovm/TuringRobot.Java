@@ -21,4 +21,9 @@ public class EmptyCommandNode implements RobotDocumentNode {
     public Rectangle<Integer> getHighlight() {
         return new Rectangle<Integer>(1, 1, 9, 1);
     }
+
+    @Override
+    public RobotDocumentNode stepOut() {
+        return null;
+    }
 }
