@@ -1,5 +1,6 @@
 package org.zubovm.robot;
 
+import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.test.EmptyCommandNode;
 
 import java.util.Arrays;
@@ -20,11 +21,16 @@ public class ProgramNode implements RobotDocumentNode {
 
     @Override
     public String getText() {
-        return "программа " + name + "\n<команда>\nконец";
+        return "программа " + name + "\n|<команда>\nконец";
     }
 
     @Override
     public RobotDocumentNode stepIn() {
         return children.get(0);
+    }
+
+    @Override
+    public Rectangle<Integer> getHighlight() {
+        return new Rectangle<Integer>(0, 0, 10 + name.length(), 3);
     }
 }
