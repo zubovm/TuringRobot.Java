@@ -2,17 +2,24 @@ package org.zubovm.robot;
 
 import org.zubovm.robot.geometry.Rectangle;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 /**
  * Created by michael on 31.07.16.
  */
 public class RobotDocument {
-    private final String programName;
     private RobotDocumentNode currentNode;
     private ProgramNode rootNode;
+    private FillOptionChooser fillOptionChooser;
 
     public RobotDocument(String programName) {
-        this.programName = programName;
         this.currentNode = this.rootNode = new ProgramNode(programName);
+        this.fillOptionChooser = new FillOptionChooser(
+                Arrays.stream(MoveCommandNode.ALL_THE_RIGHT_MOVES).map(
+                        nodeClass -> new FillOptionChoice(nodeClass, currentNode)).collect(Collectors.toList())
+                );
     }
 
     public String getText() {
@@ -34,5 +41,9 @@ public class RobotDocument {
 
     public void stepOut() {
         currentNode = currentNode.stepOut();
+    }
+
+    public FillOptionChooser getFillOptionChooser() {
+        return fillOptionChooser;
     }
 }

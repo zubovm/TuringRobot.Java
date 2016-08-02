@@ -1,11 +1,13 @@
 package org.zubovm.robot.test;
 
-import org.zubovm.robot.ProgramNode;
-import org.zubovm.robot.RobotDocument;
-import org.zubovm.robot.RobotDocumentNode;
+import org.zubovm.robot.*;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.geometry.Util;
 import org.zubovm.robot.text.EmptyCommandNode;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by michael on 31.07.16.
@@ -45,6 +47,20 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         assertEquals(node.getClass(), ProgramNode.class);
         doc.stepOut();
         assertEquals(doc.getCurrentNode().getClass(), ProgramNode.class);
+    }
+
+    public void testFillNode() {
+        RobotDocument doc = new RobotDocument("Program 0");
+        doc.stepIn();
+        FillOptionChooser chooser = doc.getFillOptionChooser();
+        Set<String> optionLabels = new HashSet<>();
+
+        for (FillOptionChoice choice: chooser) {
+            optionLabels.add(choice.getLabel());
+        }
+
+        assertEquals(optionLabels, new HashSet<>(
+                Arrays.asList("шаг на юг", "шаг на север", "шаг на запад", "шаг на восток")));
     }
 
     public void testTextCut() {
