@@ -5,10 +5,8 @@ import org.zubovm.robot.geometry.Rectangle;
 /**
  * Created by michael on 02.08.16.
  */
-public class MoveCommandNode implements RobotDocumentNode {
-    public static final Class<RobotDocumentNode>[] ALL_THE_RIGHT_MOVES = new Class[] {
-        MoveNorthNode.class, MoveSouthNode.class, MoveWestNode.class, MoveEastNode.class
-    };
+public class MoveWestNode implements RobotDocumentNode {
+    public static String label = "шаг на запад";
 
     @Override
     public String getText() {
