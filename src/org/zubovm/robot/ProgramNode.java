@@ -1,10 +1,9 @@
 package org.zubovm.robot;
 
 import org.zubovm.robot.geometry.Rectangle;
-import org.zubovm.robot.test.EmptyCommandNode;
+import org.zubovm.robot.text.EmptyCommandNode;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public class ProgramNode implements RobotDocumentNode {
 
     public ProgramNode(String programName) {
         this.name = programName;
-        this.children = Arrays.asList(new EmptyCommandNode());
+        this.children = Arrays.asList(new EmptyCommandNode(this));
     }
 
     @Override
@@ -36,6 +35,6 @@ public class ProgramNode implements RobotDocumentNode {
 
     @Override
     public RobotDocumentNode stepOut() {
-        return null;
+        return this;
     }
 }

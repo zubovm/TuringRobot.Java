@@ -1,9 +1,11 @@
 package org.zubovm.robot.test;
 
+import org.zubovm.robot.ProgramNode;
 import org.zubovm.robot.RobotDocument;
 import org.zubovm.robot.RobotDocumentNode;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.geometry.Util;
+import org.zubovm.robot.text.EmptyCommandNode;
 
 /**
  * Created by michael on 31.07.16.
@@ -39,6 +41,10 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         RobotDocument doc = new RobotDocument("Program 0");
         doc.stepIn();
         doc.stepOut();
+        RobotDocumentNode node = doc.getCurrentNode();
+        assertEquals(node.getClass(), ProgramNode.class);
+        doc.stepOut();
+        assertEquals(doc.getCurrentNode().getClass(), ProgramNode.class);
     }
 
     public void testTextCut() {

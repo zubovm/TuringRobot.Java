@@ -1,4 +1,4 @@
-package org.zubovm.robot.test;
+package org.zubovm.robot.text;
 
 import org.zubovm.robot.RobotDocumentNode;
 import org.zubovm.robot.geometry.Rectangle;
@@ -7,6 +7,12 @@ import org.zubovm.robot.geometry.Rectangle;
  * Created by michael on 02.08.16.
  */
 public class EmptyCommandNode implements RobotDocumentNode {
+    private RobotDocumentNode parent;
+
+    public EmptyCommandNode(RobotDocumentNode parent) {
+        this.parent = parent;
+    }
+
     @Override
     public String getText() {
         return "<команда>";
@@ -24,6 +30,6 @@ public class EmptyCommandNode implements RobotDocumentNode {
 
     @Override
     public RobotDocumentNode stepOut() {
-        return null;
+        return parent;
     }
 }
