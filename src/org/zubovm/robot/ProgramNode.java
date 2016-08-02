@@ -37,4 +37,9 @@ public class ProgramNode implements RobotDocumentNode {
     public RobotDocumentNode stepOut() {
         return this;
     }
+
+    @Override
+    public void replaceWith(RobotDocumentNode robotDocumentNode) {
+
+    }
 }

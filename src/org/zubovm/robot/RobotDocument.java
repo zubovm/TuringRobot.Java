@@ -3,7 +3,6 @@ package org.zubovm.robot;
 import org.zubovm.robot.geometry.Rectangle;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 /**
@@ -12,13 +11,13 @@ import java.util.stream.Collectors;
 public class RobotDocument {
     private RobotDocumentNode currentNode;
     private ProgramNode rootNode;
-    private FillOptionChooser fillOptionChooser;
+    private ExpandOptionChooser expandOptionChooser;
 
     public RobotDocument(String programName) {
         this.currentNode = this.rootNode = new ProgramNode(programName);
-        this.fillOptionChooser = new FillOptionChooser(
+        this.expandOptionChooser = new ExpandOptionChooser(
                 Arrays.stream(MoveCommandNode.ALL_THE_RIGHT_MOVES).map(
-                        nodeClass -> new FillOptionChoice(nodeClass, currentNode)).collect(Collectors.toList())
+                        nodeClass -> new ExpandOptionChoice(nodeClass, currentNode)).collect(Collectors.toList())
                 );
     }
 
@@ -43,7 +42,7 @@ public class RobotDocument {
         currentNode = currentNode.stepOut();
     }
 
-    public FillOptionChooser getFillOptionChooser() {
-        return fillOptionChooser;
+    public ExpandOptionChooser getExpandOptionChooser() {
+        return expandOptionChooser;
     }
 }

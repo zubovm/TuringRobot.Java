@@ -29,4 +29,9 @@ public class MoveCommandNode implements RobotDocumentNode {
     public RobotDocumentNode stepOut() {
         return null;
     }
+
+    @Override
+    public void replaceWith(RobotDocumentNode robotDocumentNode) {
+
+    }
 }

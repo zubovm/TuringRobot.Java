@@ -10,4 +10,5 @@ public interface RobotDocumentNode {
     RobotDocumentNode stepIn();
     Rectangle<Integer> getHighlight();
     RobotDocumentNode stepOut();
+    void replaceWith(RobotDocumentNode robotDocumentNode);
 }

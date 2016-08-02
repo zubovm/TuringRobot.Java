@@ -32,4 +32,9 @@ public class EmptyCommandNode implements RobotDocumentNode {
     public RobotDocumentNode stepOut() {
         return parent;
     }
+
+    @Override
+    public void replaceWith(RobotDocumentNode robotDocumentNode) {
+
+    }
 }

@@ -5,9 +5,7 @@ import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.geometry.Util;
 import org.zubovm.robot.text.EmptyCommandNode;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by michael on 31.07.16.
@@ -49,18 +47,31 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         assertEquals(doc.getCurrentNode().getClass(), ProgramNode.class);
     }
 
-    public void testFillNode() {
+    public void testNodeExpander() {
         RobotDocument doc = new RobotDocument("Program 0");
         doc.stepIn();
-        FillOptionChooser chooser = doc.getFillOptionChooser();
+        ExpandOptionChooser chooser = doc.getExpandOptionChooser();
         Set<String> optionLabels = new HashSet<>();
 
-        for (FillOptionChoice choice: chooser) {
+        for (ExpandOptionChoice choice: chooser) {
             optionLabels.add(choice.getLabel());
         }
 
         assertEquals(optionLabels, new HashSet<>(
                 Arrays.asList("шаг на юг", "шаг на север", "шаг на запад", "шаг на восток")));
+    }
+
+    public void testNodeExpand() {
+        RobotDocument doc = new RobotDocument("Program 0");
+        doc.stepIn();
+        ExpandOptionChooser chooser = doc.getExpandOptionChooser();
+        SortedSet<ExpandOptionChoice> optionLabels = new TreeSet<>((lhs, rhs) -> lhs.getLabel().compareTo(rhs.getLabel()));
+
+        for (ExpandOptionChoice choice: chooser) {
+            optionLabels.add(choice);
+        }
+
+        optionLabels.first().expand();
     }
 
     public void testTextCut() {
