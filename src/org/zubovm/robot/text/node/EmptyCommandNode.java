@@ -8,11 +8,12 @@ import org.zubovm.robot.util.MenuTreeNode;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Properties;
 
 /**
  * Created by michael on 02.08.16.
  */
-public class EmptyCommandNode extends AbstractCommandNode {
+public class EmptyCommandNode extends AbstractCommandNode implements CommandNode {
 
     public static Collection<MenuTreeNode<RobotDocumentNode>> menu = Arrays.asList(
                 new MenuTreeNode<RobotDocumentNode>("пока", MoveNorthNode.class, null),
@@ -25,8 +26,8 @@ public class EmptyCommandNode extends AbstractCommandNode {
                                 new MenuTreeNode<RobotDocumentNode>("запад", MoveNorthNode.class, null)
                         )));
 
-    public EmptyCommandNode(RobotDocumentNode parent) {
-        super(parent);
+    public EmptyCommandNode(RobotDocumentNode parent, Properties props) {
+        super(parent, props);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package org.zubovm.robot.text.node;
 
 import org.zubovm.robot.geometry.Rectangle;
+import org.zubovm.robot.text.AbstractCommandNode;
 
 /**
  * Created by michael on 02.08.16.
  */
-public class MoveWestNode implements RobotDocumentNode {
-    public static String label = "шаг на запад";
+public class MoveWestNode  extends AbstractCommandNode implements CommandNode {
 
     @Override
     public String getText() {

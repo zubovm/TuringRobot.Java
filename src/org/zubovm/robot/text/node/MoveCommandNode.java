@@ -3,6 +3,8 @@ package org.zubovm.robot.text.node;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.text.AbstractCommandNode;
 
+import java.util.Properties;
+
 /**
  * Created by michael on 02.08.16.
  */
@@ -11,8 +13,8 @@ public abstract class MoveCommandNode extends AbstractCommandNode {
         MoveNorthNode.class, MoveSouthNode.class, MoveWestNode.class, MoveEastNode.class
     };
 
-    public MoveCommandNode(RobotDocumentNode parent) {
-        super(parent);
+    public MoveCommandNode(RobotDocumentNode parent, Properties props) {
+        super(parent, props);
     }
 
     @Override

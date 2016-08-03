@@ -9,24 +9,17 @@ import java.util.List;
 /**
  * Created by michael on 02.08.16.
  */
-public class ProgramNode extends AbstractCommandNode {
+public class ProgramNode  extends AbstractCommandNode implements CommandNode  {
     private final String name;
-    private final List<RobotDocumentNode> children;
 
     public ProgramNode(String programName) {
         super();
         this.name = programName;
-        this.children = Arrays.asList(new EmptyCommandNode(this));
     }
 
     @Override
     public String getText() {
         return "программа " + name + "\n|<команда>\nконец";
-    }
-
-    @Override
-    public RobotDocumentNode stepIn() {
-        return children.get(0);
     }
 
     @Override
@@ -37,10 +30,5 @@ public class ProgramNode extends AbstractCommandNode {
     @Override
     public RobotDocumentNode stepOut() {
         return this;
-    }
-
-    @Override
-    public void replaceWith(RobotDocumentNode robotDocumentNode) {
-
     }
 }

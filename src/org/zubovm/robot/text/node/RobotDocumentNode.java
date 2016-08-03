@@ -4,6 +4,8 @@ import org.zubovm.robot.ExpandOptionChooser;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.util.ListWithHandles;
 
+import java.util.Properties;
+
 /**
  * Created by michael on 02.08.16.
  */
@@ -30,9 +32,6 @@ public interface RobotDocumentNode {
         return getHandle().hasNext() ? getHandle().getNext().getValue() : this;
     }
 
-    RobotDocumentNode delete();
-    RobotDocumentNode insertBefore();
-    RobotDocumentNode insertAfter();
     RobotDocumentNode defaultReplacement();
 
     default ExpandOptionChooser expand() {
@@ -45,5 +44,26 @@ public interface RobotDocumentNode {
 
     ListWithHandles<RobotDocumentNode>.Handle getHandle();
     RobotDocumentNode getParent();
+    Properties getProperties();
+
     void initHandle(ListWithHandles<RobotDocumentNode>.Handle handle);
+
+    default RobotDocumentNode delete() {
+        RobotDocumentNode newNode = defaultReplacement();
+        newNode.initHandle(getHandle());
+        getHandle().setValue(newNode);
+        return newNode;
+    }
+
+    default RobotDocumentNode insertBefore() {
+        RobotDocumentNode newNode = defaultReplacement();
+        newNode.initHandle(getHandle().insertBefore(newNode));
+        return newNode;
+    }
+
+    default RobotDocumentNode insertAfter() {
+        RobotDocumentNode newNode = defaultReplacement();
+        newNode.initHandle(getHandle().insertAfter(newNode));
+        return newNode;
+    }
 }

@@ -5,24 +5,7 @@ package org.zubovm.robot.text.node;
  */
 public interface CommandNode extends RobotDocumentNode {
     @Override
-    default RobotDocumentNode delete() {
-        RobotDocumentNode newNode = new EmptyCommandNode(getParent());
-        newNode.initHandle(getHandle());
-        getHandle().setValue(newNode);
-        return newNode;
-    }
-
-    @Override
-    default RobotDocumentNode insertBefore() {
-        RobotDocumentNode newNode = new EmptyCommandNode(getParent());
-        newNode.initHandle(getHandle().insertBefore(newNode));
-        return newNode;
-    }
-
-    @Override
-    default RobotDocumentNode insertAfter() {
-        RobotDocumentNode newNode = new EmptyCommandNode(getParent());
-        newNode.initHandle(getHandle().insertAfter(newNode));
-        return newNode;
+    default RobotDocumentNode defaultReplacement() {
+        return new EmptyCommandNode(getParent(), getProperties());
     }
 }
