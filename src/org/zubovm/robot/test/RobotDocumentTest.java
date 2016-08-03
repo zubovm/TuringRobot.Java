@@ -3,7 +3,10 @@ package org.zubovm.robot.test;
 import org.zubovm.robot.*;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.geometry.Util;
-import org.zubovm.robot.text.EmptyCommandNode;
+import org.zubovm.robot.text.node.EmptyCommandNode;
+import org.zubovm.robot.text.node.MoveNorthNode;
+import org.zubovm.robot.text.node.ProgramNode;
+import org.zubovm.robot.text.node.RobotDocumentNode;
 
 import java.util.*;
 
@@ -72,6 +75,7 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         }
 
         optionLabels.first().expand();
+        assertEquals(doc.getCurrentNode().getClass(), MoveNorthNode.class);
     }
 
     public void testTextCut() {

@@ -1,12 +1,12 @@
-package org.zubovm.robot;
+package org.zubovm.robot.text.node;
 
 import org.zubovm.robot.geometry.Rectangle;
 
 /**
  * Created by michael on 02.08.16.
  */
-public class MoveNorthNode  implements RobotDocumentNode{
-    public static String label = "шаг на север";
+public class MoveEastNode implements RobotDocumentNode {
+    public static String label = "шаг на восток";
 
     @Override
     public String getText() {

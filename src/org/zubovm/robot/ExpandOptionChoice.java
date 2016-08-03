@@ -1,5 +1,7 @@
 package org.zubovm.robot;
 
+import org.zubovm.robot.text.node.RobotDocumentNode;
+
 /**
  * Created by michael on 02.08.16.
  */
@@ -29,14 +31,10 @@ public class ExpandOptionChoice {
 
     public void expand() {
         try {
-            nodeToChange.replaceWith(newNodeClass.newInstance());
-        } catch (InstantiationException e) {
-            // TODO this is a bad code too
-            e.printStackTrace();
-            System.exit(0);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            System.exit(0);
+            nodeToChange.replaceWith(
+                    newNodeClass.getConstructor(RobotDocumentNode.class).newInstance(nodeToChange.getParent()));
+        } catch (Exception e) {
+            throw new AssertionError(e);
         }
     }
 }

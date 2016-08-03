@@ -24,6 +24,10 @@ public class ListWithHandles<E> implements Iterable<E> {
             return value;
         }
 
+        public void setValue(E value) {
+            this.value = value;
+        }
+
         public Handle getNext() {
             return next;
         }
@@ -32,28 +36,44 @@ public class ListWithHandles<E> implements Iterable<E> {
             return prev;
         }
 
-        public void insertBefore(E newValue) {
+        public Handle insertBefore(E newValue) {
             Handle newHandle = new Handle(newValue);
 
             newHandle.next = this;
             newHandle.prev = prev;
             prev.next = newHandle;
             prev = newHandle;
+
+            return newHandle;
         }
 
-        public void insertAfter(E newValue) {
+        public Handle insertAfter(E newValue) {
             Handle newHandle = new Handle(newValue);
 
             newHandle.prev = this;
             newHandle.next = next;
             next.prev = newHandle;
             next = newHandle;
+
+            return newHandle;
         }
 
-        public void remove() {
+        public boolean hasNext() {
+            return next == ListWithHandles.this.zero;
+        }
+
+        public boolean hasPrev() {
+            return prev == ListWithHandles.this.zero;
+        }
+
+        public Handle remove() {
             if (ListWithHandles.this.zero != this) {
                 prev.next = next;
                 next.prev = prev;
+
+                return prev;
+            } else {
+                return this;
             }
         }
     }

@@ -1,6 +1,9 @@
 package org.zubovm.robot;
 
 import org.zubovm.robot.geometry.Rectangle;
+import org.zubovm.robot.text.node.MoveCommandNode;
+import org.zubovm.robot.text.node.ProgramNode;
+import org.zubovm.robot.text.node.RobotDocumentNode;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
