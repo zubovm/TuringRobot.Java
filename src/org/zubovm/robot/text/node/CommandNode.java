@@ -6,6 +6,6 @@ package org.zubovm.robot.text.node;
 public interface CommandNode extends RobotDocumentNode {
     @Override
     default RobotDocumentNode defaultReplacement() {
-        return new EmptyCommandNode(getParent(), getProperties());
+        return new EmptyCommandNode(getParent());
     }
 }

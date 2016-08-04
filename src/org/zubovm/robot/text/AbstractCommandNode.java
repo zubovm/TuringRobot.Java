@@ -11,21 +11,36 @@ import java.util.Properties;
  */
 public abstract class AbstractCommandNode implements RobotDocumentNode {
 
+    @Override
+    public void setProperties(Properties propertyProvider) {
+        this.propertyProvider = propertyProvider;
+    }
+
+    @Override
+    public void setParent(RobotDocumentNode parent) {
+        this.parent = parent;
+    }
+
     private Properties propertyProvider;
     protected RobotDocumentNode parent;
     private ListWithHandles<RobotDocumentNode>.Handle handleToSelf;
     private String text = null;
-    private ListWithHandles<RobotDocumentNode> children;
+    public ListWithHandles<RobotDocumentNode> children;
 
-    public AbstractCommandNode(RobotDocumentNode parent, Properties propProvider) {
-        this.propertyProvider = propProvider;
+    public AbstractCommandNode(RobotDocumentNode parent) {
+        this.propertyProvider = parent.getProperties();
         this.parent = parent;
         this.children = new ListWithHandles<>();
     }
 
-    public AbstractCommandNode() {
-        parent = this;
+    public AbstractCommandNode(Properties propertyProvider) {
+        this.propertyProvider = propertyProvider;
+        this.parent = this;
+        this.children = new ListWithHandles<>();
     }
+
+    //TODO: delete this constructor in the end !
+    public AbstractCommandNode() {}
 
     public void initHandle(ListWithHandles<RobotDocumentNode>.Handle handle) {
         this.handleToSelf = handle;
@@ -33,6 +48,7 @@ public abstract class AbstractCommandNode implements RobotDocumentNode {
 
     public void replaceWith(RobotDocumentNode newNode) {
         handleToSelf.setValue(newNode);
+        newNode.initHandle(handleToSelf);
     }
 
     @Override
@@ -60,7 +76,7 @@ public abstract class AbstractCommandNode implements RobotDocumentNode {
 
     @Override
     public RobotDocumentNode stepIn() {
-        return this;
+        return children.isEmpty() ? this : getFirstChild();
     }
 
     @Override

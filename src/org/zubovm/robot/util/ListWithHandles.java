@@ -9,6 +9,10 @@ import java.util.function.Consumer;
  */
 public class ListWithHandles<E> implements Iterable<E> {
 
+    public boolean isEmpty() {
+        return getZero().next == getZero();
+    }
+
     public class Handle {
         private Handle prev;
         private Handle next;

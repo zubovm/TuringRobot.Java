@@ -36,11 +36,18 @@ public interface RobotDocumentNode {
 
     default ExpandOptionChooser expand() {
         return null;
+        //TODO: may be empty expander will be better ?
     }
 
     default void replaceWith(RobotDocumentNode newNode) {
+        newNode.setParent(getParent());
+        newNode.setProperties(getProperties());
         getHandle().setValue(newNode);
     }
+
+    void setProperties(Properties propertyProvider);
+
+    void setParent(RobotDocumentNode parent);
 
     ListWithHandles<RobotDocumentNode>.Handle getHandle();
     RobotDocumentNode getParent();

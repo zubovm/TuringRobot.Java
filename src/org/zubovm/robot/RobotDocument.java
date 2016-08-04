@@ -4,24 +4,25 @@ import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.text.node.MoveCommandNode;
 import org.zubovm.robot.text.node.ProgramNode;
 import org.zubovm.robot.text.node.RobotDocumentNode;
+import org.zubovm.robot.util.ListWithHandles;
 
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
  * Created by michael on 31.07.16.
  */
 public class RobotDocument {
-    private RobotDocumentNode currentNode;
+    private ListWithHandles<RobotDocumentNode>.Handle currentHandle;
     private ProgramNode rootNode;
-    private ExpandOptionChooser expandOptionChooser;
 
-    public RobotDocument(String programName) {
-        this.currentNode = this.rootNode = new ProgramNode(programName);
-        this.expandOptionChooser = new ExpandOptionChooser(
-                Arrays.stream(MoveCommandNode.ALL_THE_RIGHT_MOVES).map(
-                        nodeClass -> new ExpandOptionChoice(nodeClass, currentNode)).collect(Collectors.toList())
-                );
+    public RobotDocument(String programName, Properties properties) {
+        this.rootNode = new ProgramNode(programName, properties);
+        ListWithHandles<RobotDocumentNode> rootList = new ListWithHandles<>();
+        rootNode.initHandle(rootList.getZero().insertBefore(rootNode));
+        //TODO incorporate initHandle into insertBefore and others extracting Handlable interface
+        this.currentHandle = rootNode.getHandle();
     }
 
     public String getText() {
@@ -29,23 +30,19 @@ public class RobotDocument {
     }
 
     public Rectangle<Integer> getHighlight() {
-        return currentNode.getHighlight();
+        return getCurrentNode().getHighlight();
         //return new Rectangle<Integer>(0, 0, 10 + programName.length(), 3);
     }
 
     public void stepIn() {
-        currentNode = currentNode.stepIn();
+        currentHandle = currentHandle.getValue().stepIn().getHandle();
     }
 
     public RobotDocumentNode getCurrentNode() {
-        return currentNode;
+        return currentHandle.getValue();
     }
 
     public void stepOut() {
-        currentNode = currentNode.stepOut();
-    }
-
-    public ExpandOptionChooser getExpandOptionChooser() {
-        return expandOptionChooser;
+        currentHandle = currentHandle.getValue().stepOut().getHandle();
     }
 }

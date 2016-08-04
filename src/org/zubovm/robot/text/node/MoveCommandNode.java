@@ -14,7 +14,7 @@ public abstract class MoveCommandNode extends AbstractCommandNode {
     };
 
     public MoveCommandNode(RobotDocumentNode parent, Properties props) {
-        super(parent, props);
+        super(parent);
     }
 
     @Override

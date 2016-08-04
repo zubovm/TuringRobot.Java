@@ -2,37 +2,31 @@ package org.zubovm.robot;
 
 import org.zubovm.robot.text.node.RobotDocumentNode;
 
+import java.util.Properties;
+
 /**
  * Created by michael on 02.08.16.
  */
 public class ExpandOptionChoice {
     private final Class<RobotDocumentNode> newNodeClass;
     private final RobotDocumentNode nodeToChange;
-    private String label;
-
-    public ExpandOptionChoice(Class<RobotDocumentNode> nodeClass, RobotDocumentNode currentNode) {
-        this.newNodeClass = nodeClass;
-        this.nodeToChange = currentNode;
-        try {
-            label = (String) newNodeClass.getField("label").get(null);
-        } catch (NoSuchFieldException e) {
-            //TODO: this is a bad code !
-            e.printStackTrace();
-            System.exit(0);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-    }
 
     public String getLabel() {
         return label;
     }
 
+    private String label;
+
+    public ExpandOptionChoice(String label, Class<RobotDocumentNode> nodeClass, RobotDocumentNode currentNode) {
+        this.label = label;
+        this.newNodeClass = nodeClass;
+        this.nodeToChange = currentNode;
+    }
+
     public void expand() {
         try {
-            nodeToChange.replaceWith(
-                    newNodeClass.getConstructor(RobotDocumentNode.class).newInstance(nodeToChange.getParent()));
+            RobotDocumentNode newNode = newNodeClass.newInstance();
+            nodeToChange.replaceWith(newNode);
         } catch (Exception e) {
             throw new AssertionError(e);
         }

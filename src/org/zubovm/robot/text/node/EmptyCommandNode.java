@@ -1,8 +1,8 @@
 package org.zubovm.robot.text.node;
 
+import net.sf.json.JSONArray;
+import org.zubovm.robot.ExpandOptionChooser;
 import org.zubovm.robot.text.AbstractCommandNode;
-import org.zubovm.robot.text.node.MoveNorthNode;
-import org.zubovm.robot.text.node.RobotDocumentNode;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.util.MenuTreeNode;
 
@@ -26,8 +26,8 @@ public class EmptyCommandNode extends AbstractCommandNode implements CommandNode
                                 new MenuTreeNode<RobotDocumentNode>("запад", MoveNorthNode.class, null)
                         )));
 
-    public EmptyCommandNode(RobotDocumentNode parent, Properties props) {
-        super(parent, props);
+    public EmptyCommandNode(RobotDocumentNode parent) {
+        super(parent);
     }
 
     @Override
@@ -38,6 +38,20 @@ public class EmptyCommandNode extends AbstractCommandNode implements CommandNode
     @Override
     public Rectangle<Integer> getHighlight() {
         return new Rectangle<Integer>(1, 1, 9, 1);
+    }
+
+    @Override
+    public ExpandOptionChooser expand() {
+        try {
+            return new ExpandOptionChooser(
+                    MenuTreeNode.readMenuFromJSON(
+                            JSONArray.fromObject(getProperties().getProperty("empty.command.base.menu")),
+                            getProperties()),
+                    this);
+        } catch (ClassNotFoundException e) {
+            //TODO: extend this with logging and catching at the top - or better provide a senseful exception instead
+            throw new AssertionError(e);
+        }
     }
 };
 

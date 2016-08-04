@@ -3,8 +3,7 @@ package org.zubovm.robot.text.node;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.text.AbstractCommandNode;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by michael on 02.08.16.
@@ -12,8 +11,10 @@ import java.util.List;
 public class ProgramNode  extends AbstractCommandNode implements CommandNode  {
     private final String name;
 
-    public ProgramNode(String programName) {
-        super();
+    public ProgramNode(String programName, Properties properties) {
+        super(properties);
+        RobotDocumentNode emptyCommand = new EmptyCommandNode(this);
+        emptyCommand.initHandle(children.getZero().insertBefore(emptyCommand));
         this.name = programName;
     }
 
