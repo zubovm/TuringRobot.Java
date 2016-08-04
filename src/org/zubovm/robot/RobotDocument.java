@@ -1,14 +1,11 @@
 package org.zubovm.robot;
 
 import org.zubovm.robot.geometry.Rectangle;
-import org.zubovm.robot.text.node.MoveCommandNode;
 import org.zubovm.robot.text.node.ProgramNode;
 import org.zubovm.robot.text.node.RobotDocumentNode;
 import org.zubovm.robot.util.ListWithHandles;
 
-import java.util.Arrays;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * Created by michael on 31.07.16.
@@ -44,5 +41,26 @@ public class RobotDocument {
 
     public void stepOut() {
         currentHandle = currentHandle.getValue().stepOut().getHandle();
+    }
+
+    public void insertBefore() {
+        getCurrentNode().insertBefore();
+    }
+
+    public void insertAfter() {
+        getCurrentNode().insertAfter();
+    }
+
+    public void stepPrev() {
+        currentHandle = getCurrentNode().stepPrev().getHandle();
+        //TODO: may be stepPrev() and all that should return handle instead of node ?
+    }
+
+    public void stepNext() {
+        currentHandle = getCurrentNode().stepNext().getHandle();
+    }
+
+    public ExpandOptionChooser expand() {
+        return getCurrentNode().expand();
     }
 }

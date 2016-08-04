@@ -39,4 +39,13 @@ public class ExpandOptionChooser implements Iterable<ExpandOptionChoice> {
         }
         return result;
     }
+
+    public void expandByLabel(String labelToExpand) {
+        for (ExpandOptionChoice choice: this) {
+            if (choice.getLabel() == labelToExpand) {
+                choice.expand();
+                break;
+            }
+        }
+    }
 }

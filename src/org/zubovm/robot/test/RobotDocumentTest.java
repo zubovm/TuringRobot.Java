@@ -7,6 +7,7 @@ import org.zubovm.robot.geometry.Util;
 import org.zubovm.robot.text.node.*;
 import org.zubovm.robot.util.MenuTreeNode;
 
+import java.awt.*;
 import java.util.*;
 
 /**
@@ -80,6 +81,26 @@ public class RobotDocumentTest extends junit.framework.TestCase {
 
         optionLabels.first().expand();
         assertEquals(doc.getCurrentNode().getClass(), MoveEastNode.class);
+    }
+
+    public void testSimpleNavigationAndExpanding() {
+        RobotDocument doc = new RobotDocument("HelloRobot", props);
+        doc.stepIn();
+        doc.insertBefore();
+        doc.insertAfter();
+        doc.stepPrev();
+        doc.expand().expandByLabel("север");
+        doc.stepNext();
+        doc.expand().expandByLabel("юг");
+        doc.stepNext();
+        doc.expand().expandByLabel("восток");
+        assertEquals(doc.getText(),
+                "программа HelloRobot\n" +
+                "|<шаг на север>\n" +
+                "|<шаг на юг>\n" +
+                "|<шаг на восток>\n" +
+                "конец"
+                );
     }
 
     public void testTextCut() {

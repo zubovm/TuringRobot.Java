@@ -63,11 +63,11 @@ public class ListWithHandles<E> implements Iterable<E> {
         }
 
         public boolean hasNext() {
-            return next == ListWithHandles.this.zero;
+            return next != ListWithHandles.this.zero;
         }
 
         public boolean hasPrev() {
-            return prev == ListWithHandles.this.zero;
+            return prev != ListWithHandles.this.zero;
         }
 
         public Handle remove() {
