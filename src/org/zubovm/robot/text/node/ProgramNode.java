@@ -2,7 +2,9 @@ package org.zubovm.robot.text.node;
 
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.text.AbstractCommandNode;
+import org.zubovm.robot.util.ListWithHandles;
 
+import java.util.LinkedList;
 import java.util.Properties;
 
 /**
@@ -20,7 +22,22 @@ public class ProgramNode  extends AbstractCommandNode implements CommandNode  {
 
     @Override
     public String getText() {
-        return "программа " + name + "\n|<команда>\nконец";
+        return String.join("\n", getLines());
+    }
+
+    @Override
+    public LinkedList<StringBuilder> getLines() {
+        LinkedList<StringBuilder> accumulator = new LinkedList<>();
+        accumulator.add(new StringBuilder("программа " + name));
+        for (RobotDocumentNode child : getChildren()) {
+            Iterable<StringBuilder> childLines = child.getLines();
+            for (StringBuilder line: childLines) {
+                line.insert(0, '|');
+                accumulator.add(line);
+            }
+        }
+        accumulator.add(new StringBuilder("конец"));
+        return accumulator;
     }
 
     @Override
@@ -32,4 +49,5 @@ public class ProgramNode  extends AbstractCommandNode implements CommandNode  {
     public RobotDocumentNode stepOut() {
         return this;
     }
+
 }

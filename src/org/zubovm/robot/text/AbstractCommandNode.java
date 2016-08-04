@@ -46,11 +46,6 @@ public abstract class AbstractCommandNode implements RobotDocumentNode {
         this.handleToSelf = handle;
     }
 
-    public void replaceWith(RobotDocumentNode newNode) {
-        handleToSelf.setValue(newNode);
-        newNode.initHandle(handleToSelf);
-    }
-
     @Override
     public RobotDocumentNode getParent() {
         return parent;
@@ -62,21 +57,11 @@ public abstract class AbstractCommandNode implements RobotDocumentNode {
     }
 
     @Override
-    public RobotDocumentNode stepOut() {
-        return parent;
-    }
-
-    @Override
     public String getText() {
         if (text == null) {
-            text = propertyProvider.getProperty(getClass().getName()+".");
+            text = propertyProvider.getProperty(getClass().getName()+".text");
         }
         return text;
-    }
-
-    @Override
-    public RobotDocumentNode stepIn() {
-        return children.isEmpty() ? this : getFirstChild();
     }
 
     @Override
@@ -87,5 +72,10 @@ public abstract class AbstractCommandNode implements RobotDocumentNode {
     @Override
     public ListWithHandles<RobotDocumentNode>.Handle getHandle() {
         return handleToSelf;
+    }
+
+    @Override
+    public ListWithHandles<RobotDocumentNode> getChildren() {
+        return children;
     }
 }

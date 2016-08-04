@@ -4,6 +4,9 @@ import org.zubovm.robot.ExpandOptionChooser;
 import org.zubovm.robot.geometry.Rectangle;
 import org.zubovm.robot.util.ListWithHandles;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Properties;
 
 /**
@@ -12,8 +15,12 @@ import java.util.Properties;
 public interface RobotDocumentNode {
     String getText();
 
+    default LinkedList<StringBuilder> getLines() {
+        return new LinkedList<>(Arrays.asList(new StringBuilder(getText())));
+    }
+
     default RobotDocumentNode stepIn() {
-        return getFirstChild();
+        return getChildren() != null ? getFirstChild() : this;
     }
 
     RobotDocumentNode getFirstChild();
@@ -42,6 +49,7 @@ public interface RobotDocumentNode {
     default void replaceWith(RobotDocumentNode newNode) {
         newNode.setParent(getParent());
         newNode.setProperties(getProperties());
+        newNode.initHandle(getHandle());
         getHandle().setValue(newNode);
     }
 
@@ -73,4 +81,6 @@ public interface RobotDocumentNode {
         newNode.initHandle(getHandle().insertAfter(newNode));
         return newNode;
     }
+
+    ListWithHandles<RobotDocumentNode> getChildren();
 }

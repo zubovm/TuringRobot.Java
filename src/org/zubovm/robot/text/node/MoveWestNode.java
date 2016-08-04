@@ -7,12 +7,6 @@ import org.zubovm.robot.text.AbstractCommandNode;
  * Created by michael on 02.08.16.
  */
 public class MoveWestNode  extends AbstractCommandNode implements CommandNode {
-
-    @Override
-    public String getText() {
-        return null;
-    }
-
     @Override
     public RobotDocumentNode stepIn() {
         return null;

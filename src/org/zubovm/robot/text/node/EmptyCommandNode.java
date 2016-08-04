@@ -30,10 +30,6 @@ public class EmptyCommandNode extends AbstractCommandNode implements CommandNode
         super(parent);
     }
 
-    @Override
-    public String getText() {
-        return "<команда>";
-    }
 
     @Override
     public Rectangle<Integer> getHighlight() {

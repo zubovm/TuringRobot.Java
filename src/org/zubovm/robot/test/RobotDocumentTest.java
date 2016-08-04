@@ -19,23 +19,23 @@ public class RobotDocumentTest extends junit.framework.TestCase {
     private Properties props;
 
     public void testCreate() {
-        RobotDocument doc = new RobotDocument("Program 0", null);
+        RobotDocument doc = new RobotDocument("Program 0", props);
     }
 
     public void testInitialContent() {
-        RobotDocument doc = new RobotDocument("Program 0", null);
+        RobotDocument doc = new RobotDocument("Program 0", props);
         String text = doc.getText();
         assertEquals(text, "программа Program 0\n|<команда>\nконец");
     }
 
     public void testInitialHighlight() {
-        RobotDocument doc = new RobotDocument("Program 0", null);
+        RobotDocument doc = new RobotDocument("Program 0", props);
         Rectangle<Integer> highlight = doc.getHighlight();
         assertEquals(Util.cutString(doc.getText(), highlight), doc.getText());
     }
 
     public void testStepIn() {
-        RobotDocument doc = new RobotDocument("Program 0", null);
+        RobotDocument doc = new RobotDocument("Program 0", props);
         doc.stepIn();
         RobotDocumentNode node = doc.getCurrentNode();
         assertEquals(node.getClass(), EmptyCommandNode.class);
@@ -44,7 +44,7 @@ public class RobotDocumentTest extends junit.framework.TestCase {
     }
 
     public void testStepOut() {
-        RobotDocument doc = new RobotDocument("Program 0", null);
+        RobotDocument doc = new RobotDocument("Program 0", props);
         doc.stepIn();
         doc.stepOut();
         RobotDocumentNode node = doc.getCurrentNode();
@@ -68,7 +68,7 @@ public class RobotDocumentTest extends junit.framework.TestCase {
     }
 
     public void testNodeExpand() throws ClassNotFoundException {
-        RobotDocument doc = new RobotDocument("Program 0", null);
+        RobotDocument doc = new RobotDocument("Program 0", props);
         doc.stepIn();
         SortedSet<ExpandOptionChoice> optionLabels = new TreeSet<>(
                 (lhs, rhs) -> lhs.getLabel().compareTo(rhs.getLabel()));
@@ -96,9 +96,9 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         doc.expand().expandByLabel("восток");
         assertEquals(doc.getText(),
                 "программа HelloRobot\n" +
-                "|<шаг на север>\n" +
-                "|<шаг на юг>\n" +
-                "|<шаг на восток>\n" +
+                "|шаг на север\n" +
+                "|шаг на юг\n" +
+                "|шаг на восток\n" +
                 "конец"
                 );
     }
@@ -136,5 +136,14 @@ public class RobotDocumentTest extends junit.framework.TestCase {
         props.setProperty("org.zubovm.robot.text.node.MoveSouthNode.menu.label", "юг");
         props.setProperty("org.zubovm.robot.text.node.MoveWestNode.menu.label", "запад");
         props.setProperty("org.zubovm.robot.text.node.MoveEastNode.menu.label", "восток");
+
+        props.setProperty("org.zubovm.robot.text.node.EmptyCommandNode.text", "<команда>");
+        props.setProperty("org.zubovm.robot.text.node.WhileNode.text", "пока");
+        props.setProperty("org.zubovm.robot.text.node.SelectNode.text", "выбор");
+        props.setProperty("org.zubovm.robot.text.node.BrushNode.text", "закрасить");
+        props.setProperty("org.zubovm.robot.text.node.MoveNorthNode.text", "шаг на север");
+        props.setProperty("org.zubovm.robot.text.node.MoveSouthNode.text", "шаг на юг");
+        props.setProperty("org.zubovm.robot.text.node.MoveWestNode.text", "шаг на запад");
+        props.setProperty("org.zubovm.robot.text.node.MoveEastNode.text", "шаг на восток");
     }
 }

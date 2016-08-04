@@ -18,11 +18,6 @@ public abstract class MoveCommandNode extends AbstractCommandNode {
     }
 
     @Override
-    public String getText() {
-        return null;
-    }
-
-    @Override
     public Rectangle<Integer> getHighlight() {
         return null;
     }
